@@ -4,9 +4,27 @@
 	<title>Start Game</title>
 </head>
 <body>
-	This is a 2 player ping pong game.<br>
+	<div id="implementation">This is a 2 player ping pong game.<br>
 	Player 1 should use left and right arrows for movement.<br>
 	Player 2 should use A and D keys for movement.<br>
-	<button id="start" onclick="window.location.href='game.html';">Start the Game!!</button>
+	<button id="start">Start the Game!!</button>
+	<script>
+		document.getElementById("start").addEventListener("click",loadGame);
+		function loadGame(){
+			let xhr=new XMLHttpRequest();
+			xhr.open("GET","game.html",true);
+
+			xhr.onload=function(){
+				if(this.status== 200){
+					document.write(this.responseText);
+					// document.getElementsById("implementation").innerHTML=this.responseText;
+					// innerHTML does not work here since it in unable to load scripts, so document.write is used
+				}
+			}
+			xhr.send();
+		}
+
+	</script>
+	</div>
 </body>
 </html>
