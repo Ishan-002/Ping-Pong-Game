@@ -12,6 +12,8 @@ let canvas=document.getElementById("cover");
 		let paddleX2=200;
 		let score1=0;
 		let score2=0;
+		window.localStorage.setItem("score1",'0');
+		window.localStorage.setItem("score2",'0');
 		//score implementation is left
 		function drawBall(){
 			ctx.beginPath();
@@ -25,14 +27,24 @@ let canvas=document.getElementById("cover");
 			drawBall();
 			drawPaddle1();
 			drawPaddle2();
+
+			document.getElementById("score1").innerHTML=window.localStorage.getItem("score1");
+			document.getElementById("score2").innerHTML=window.localStorage.getItem("score2");
+
 			{if(y+dy<ballRadius)
 			{
 				if(x>paddleX2 && x<paddleX2+paddleWidth)
 					{dy=-dy;}
 				else{
 					alert("Player 2 loses the game :(");
-					document.location.reload();
-					clearInterval(interval);
+					score1++;
+					window.localStorage.setItem("score1", String(score1));
+					// clearInterval(interval);
+					x=canvas.width-350;
+					y=canvas.height-50;
+					dx=2;
+					dy=-2;
+					moveBall();
 				}
 			}
 			else if(y+dy>canvas.width)
@@ -41,8 +53,16 @@ let canvas=document.getElementById("cover");
 					{dy=-dy;}
 				else{
 					alert("Player 1 loses the game :(");
-					document.location.reload();
-					clearInterval(interval);
+					score2++;
+					window.localStorage.setItem("score2", String(score2));
+					// document.location.reload();
+					// clearInterval(interval);
+					x=canvas.width-350;
+					y=canvas.height-50;
+					dx=2;
+					dy=-2;
+
+					moveBall();
 				}
 			}
 			}
@@ -149,3 +169,4 @@ let canvas=document.getElementById("cover");
 			ctx.fill();
 			ctx.closePath();
 		}
+		moveBall();
